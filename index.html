@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gyankshetra - BPSC TRE Science Mock Test</title>
+    <style>
+        :root {
+            --primary: #0a5c36;
+            --primary-light: #e8f5e9;
+            --accent: #2e7d32;
+            --bg: #f4f7f6;
+            --card-bg: #ffffff;
+            --text: #212529;
+            --border: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 450px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* App Header */
+        .app-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .app-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .timer-badge {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Screen Sections */
+        .screen {
+            display: none;
+            padding: 20px;
+            flex: 1;
+            flex-direction: column;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        /* Intro Screen */
+        .badge-category {
+            align-self: flex-start;
+            background: #e8f5e9;
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            border: 1px solid #c8e6c9;
+        }
+
+        .test-title {
+            font-size: 1.3rem;
+            color: var(--text);
+            margin-bottom: 5px;
+        }
+
+        .test-subtitle {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: #f8f9fa;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .stat-card .val {
+            font-weight: bold;
+            font-size: 0.95rem;
+            color: var(--primary);
+        }
+
+        .stat-card .lbl {
+            font-size: 0.7rem;
+            color: #666;
+        }
+
+        .instructions-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border);
+        }
+
+        .instructions-card h4 {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            color: var(--primary);
+        }
+
+        .instructions-card ul {
+            padding-left: 18px;
+            font-size: 0.85rem;
+            color: #444;
+        }
+
+        .instructions-card li {
+            margin-bottom: 5px;
+        }
+
+        .note-box {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .btn-main {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+        }
+
+        .btn-main:hover {
+            background: #08492b;
+        }
+
+        /* Test Screen */
+        .candidate-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f0f4f1;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .menu-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .q-count {
+            font-size: 0.9rem;
+            color: var(--primary);
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .option-btn {
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: white;
+            text-align: left;
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-btn:hover {
+            background: #f8f9fa;
+        }
+
+        .option-btn.selected {
+            border-color: var(--primary);
+            background: #e8f5e9;
+            font-weight: 600;
+        }
+
+        .nav-btns {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #333;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            flex: 1;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn-primary-nav {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            flex: 1;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Palette Modal */
+        .modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .modal-card {
+            background: white;
+            border-radius: 12px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .palette-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .palette-num {
+            padding: 8px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .palette-num.answered {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Result Screen */
+        .result-header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .result-header h2 {
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+
+        .res-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
+        }
+
+        .res-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .res-table td:last-child {
+            text-align: right;
+            font-weight: bold;
+        }
+
+        .leaderboard-box {
+            background: #f8f9fa;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+
+        .leaderboard-box h4 {
+            font-size: 0.85rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            padding: 4px 0;
+            border-bottom: 1px dashed #e0e0e0;
+        }
+
+        .btn-reattempt {
+            background: #ffb300;
+            color: #000;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        /* Analysis Screen */
+        .analysis-card {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 12px;
+            font-size: 0.85rem;
+        }
+
+        .analysis-q-title {
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .ans-status {
+            font-size: 0.8rem;
+            margin-bottom: 4px;
+        }
+
+        .ans-status.correct { color: green; }
+        .ans-status.wrong { color: red; }
+        .ans-status.not-attempted { color: orange; }
+
+        .explanation-box {
+            background: #fffde7;
+            border-left: 3px solid #fbc02d;
+            padding: 8px;
+            margin-top: 8px;
+            border-radius: 4px;
+        }
+
+        .explanation-box ul {
+            padding-left: 15px;
+            margin-top: 5px;
+        }
+
+        .explanation-box li {
+            margin-bottom: 3px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <!-- Top Header -->
+    <div class="app-header">
+        <div class="app-title">🎓 Gyankshetra</div>
+        <div class="timer-badge" id="header-timer">⏱️ 00:00</div>
+    </div>
+
+    <!-- 1. START SCREEN -->
+    <div id="screen-start" class="screen active">
+        <div class="badge-category">BPSC TRE 4 MOCK TEST - SCIENCE</div>
+        <h2 class="test-title" id="display-test-title">विज्ञान: विधुत धारा के चुंबकीय प्रभाव</h2>
+        <p class="test-subtitle">Bihar Public Service Commission - Teacher Recruitment</p>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="val" id="stat-mcqs">40 Questions</div>
+                <div class="lbl">Total MCQs</div>
+            </div>
+            <div class="stat-card">
+                <div class="val" id="stat-duration">40 Minutes</div>
+                <div class="lbl">Time Duration</div>
+            </div>
+            <div class="stat-card">
+                <div class="val">1/3 Negative</div>
+                <div class="lbl">Negative Marking</div>
+            </div>
+        </div>
+
+        <div class="instructions-card">
+            <h4>📋 Instructions</h4>
+            <ul>
+                <li>सभी प्रश्न बहुविकल्पीय हैं।</li>
+                <li>प्रत्येक सही उत्तर पर 1 अंक प्राप्त होंगे।</li>
+                <li>प्रत्येक 3 गलत उत्तर देने पर 1 अंक कटेंगे।</li>
+                <li>सभी 5 विकल्प में से एक चयन करना आवश्यक है।</li>
+            </ul>
+        </div>
+
+        <div class="note-box">
+            नोट: प्रश्न का उत्तर नहीं देने पर विकल्प (E) का चयन करना आवश्यक है। चयन नहीं करने पर प्रत्येक प्रश्न का 1/3 नकारात्मक अंक कटेगा।
+        </div>
+
+        <div class="input-group">
+            <label>Candidate Name</label>
+            <input type="text" id="candidate-name-input" placeholder="Enter your full name...">
+        </div>
+
+        <button class="btn-main" onclick="startTest()">START TEST ➔</button>
+    </div>
+
+    <!-- 2. TEST SCREEN -->
+    <div id="screen-test" class="screen">
+        <div class="candidate-bar">
+            <span>Candidate: <span id="test-candidate-display">---</span></span>
+            <button class="menu-btn" onclick="togglePalette(true)">☰</button>
+        </div>
+
+        <div class="q-count" id="q-count-text">Q1 of 40</div>
+        <div class="question-text" id="question-text-box">Loading...</div>
+
+        <div class="options-container" id="options-container">
+            <!-- Dynamic Options -->
+        </div>
+
+        <div class="nav-btns">
+            <button class="btn-secondary" onclick="prevQuestion()">Previous</button>
+            <button class="btn-primary-nav" id="next-btn" onclick="nextQuestion()">Next ➔</button>
+        </div>
+    </div>
+
+    <!-- 3. RESULT SCREEN -->
+    <div id="screen-result" class="screen">
+        <div class="result-header">
+            <div style="font-size: 2rem;">🎉</div>
+            <h2>Result Summary</h2>
+            <p style="font-size: 0.8rem; color: #666;">Test Submitted Successfully</p>
+        </div>
+
+        <table class="res-table">
+            <tr><td>Candidate Name:</td><td id="res-name">---</td></tr>
+            <tr><td>Total Questions:</td><td id="res-total">40</td></tr>
+            <tr><td>Attempted:</td><td id="res-attempted">0</td></tr>
+            <tr><td>Correct Answers (+1):</td><td id="res-correct" style="color: green;">0</td></tr>
+            <tr><td>Wrong Answers (-0.33):</td><td id="res-wrong" style="color: red;">0</td></tr>
+            <tr><td>Final Score:</td><td id="res-score" style="color: var(--primary);">0.00 / 40</td></tr>
+            <tr><td>Your Rank:</td><td id="res-rank" style="color: orange;">-</td></tr>
+        </table>
+
+        <div class="leaderboard-box">
+            <h4>🏆 Top 5 Scorers</h4>
+            <div id="leaderboard-list">
+                <!-- Top 5 dynamically rendered -->
+            </div>
+        </div>
+
+        <button class="btn-main" onclick="showAnalysisPage(0)">CONTINUE TO AI ANALYSIS ➔</button>
+        <button class="btn-reattempt" onclick="resetToHome()">🔄 REATTEMPT</button>
+    </div>
+
+    <!-- 4. ANALYSIS SCREEN -->
+    <div id="screen-analysis" class="screen">
+        <h3 style="margin-bottom: 15px; color: var(--primary);">AI Analysis & Solutions</h3>
+        <div id="analysis-content">
+            <!-- 2 Questions per page rendered here -->
+        </div>
+
+        <div class="nav-btns" style="margin-top: auto;">
+            <button class="btn-secondary" id="analysis-prev-btn" onclick="prevAnalysisPage()">← PREV PAGE</button>
+            <button class="btn-primary-nav" id="analysis-next-btn" onclick="nextAnalysisPage()">NEXT PAGE →</button>
+        </div>
+        <button class="btn-main" style="margin-top: 10px; background: #2e7d32;" onclick="resetToHome()">🏠 FINISH TO HOME</button>
+    </div>
+
+    <!-- Question Palette Modal -->
+    <div class="modal-overlay" id="palette-modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <span>Question Palette</span>
+                <span style="cursor: pointer;" onclick="togglePalette(false)">✕</span>
+            </div>
+            <div class="palette-grid" id="palette-grid">
+                <!-- 1 to 40 dynamically -->
+            </div>
+            <button class="btn-main" onclick="submitTest()">✓ Submit Test</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// 40 BPSC TRE Pattern Questions - Magnetic Effects of Electric Current
+const testQuestions = [
+    {
+        q: "किसी धारावाही सीधे चालक तार के चारों ओर उत्पन्न चुंबकीय क्षेत्र की दिशा ज्ञात करने के लिए किस नियम का उपयोग किया जाता है?",
+        options: ["(A) फ्लेमिंग का वामहस्त नियम", "(B) दक्षिण-हस्त अंगुष्ठ नियम (Right-Hand Thumb Rule)", "(C) फ्लेमिंग का दक्षिण-हस्त नियम", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 1,
+        points: [
+            "दक्षिण-हस्त अंगुष्ठ नियम (Right-Hand Thumb Rule) सीधे चालक में धारा और चुंबकीय क्षेत्र की दिशा बताता है।",
+            "अंगूठा धारा (Current) की दिशा में हो, तो मुड़ी हुई अंगुलियाँ चुंबकीय क्षेत्र रेखाओं की दिशा दर्शाती हैं।",
+            "इसे मैक्सवेल का कॉर्क-स्क्रू नियम (Corkscrew Rule) भी कहा जाता है।",
+            "यह नियम सीधे चालक तार और वृत्ताकार पाश (Circular loop) दोनों के लिए लागू होता है।",
+            "BPSC TRE में नियमों के अनुप्रयोग पर सीधे व्यावहारिक प्रश्न पूछे जाते हैं।"
+        ]
+    },
+    {
+        q: "ऑर्स्टेड (Oersted) के प्रयोग ने सर्वप्रथम यह सिद्ध किया कि:",
+        options: ["(A) चुंबक से विद्युत धारा उत्पन्न की जा सकती है", "(B) विद्युत धारा के प्रवाह से चुंबकीय क्षेत्र उत्पन्न होता है", "(C) प्रकाश एक विद्युत चुंबकीय तरंग है", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 1,
+        points: [
+            "हंस क्रिश्चियन ऑर्स्टेड ने 1820 में खोजा कि धारावाही चालक के पास रखी दिक्सूची (Compass) विक्षेपित होती है।",
+            "यह विद्युत और चुंबकत्व के बीच संबंध की पहली प्रायोगिक खोज थी।",
+            "चुंबकीय क्षेत्र की तीव्रता का मापन इकाई 'ऑर्स्टेड' उन्हीं के सम्मान में रखा गया है।",
+            "धारा का मान बढ़ाने पर दिक्सूची का विक्षेप बढ़ जाता है।",
+            "धारा की दिशा बदलने पर चुंबकीय विक्षेप की दिशा भी उलट जाती है।"
+        ]
+    },
+    {
+        q: "एक परिनालिका (Solenoid) के अंदर चुंबकीय क्षेत्र रेखाएँ कैसी होती हैं?",
+        options: ["(A) वृत्ताकार और असमान", "(B) समांतर सरल रेखाएँ जो समान चुंबकीय क्षेत्र दर्शाती हैं", "(C) केंद्र पर शून्य और सिरों पर अधिकतम", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 1,
+        points: [
+            "परिनालिका के भीतर चुंबकीय क्षेत्र एकसमान (Uniform) होता है।",
+            "क्षेत्र रेखाएँ परिनालिका के अंदर परस्पर समांतर और सीधी रेखाओं के रूप में होती हैं।",
+            "परिनालिका का व्यवहार एक छड़ चुंबक (Bar Magnet) के समान होता है।",
+            "इसके सिरों पर उत्तर और दक्षिण ध्रुव निर्मित होते हैं।",
+            "परिनालिका के क्रोड में नर्म लोहे की छड़ रखने पर विद्युत चुंबक बनता है।"
+        ]
+    },
+    {
+        q: "फ्लेमिंग के वामहस्त नियम (Fleming's Left-Hand Rule) में तर्जनी (Index finger) किसकी दिशा को दर्शाती है?",
+        options: ["(A) चालक पर लगने वाले बल की दिशा", "(B) चुंबकीय क्षेत्र की दिशा", "(C) चालक में प्रवाहित धारा की दिशा", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 1,
+        points: [
+            "तर्जनी (Index Finger) -> चुंबकीय क्षेत्र (Magnetic Field) की दिशा।",
+            "मध्यमा (Middle Finger) -> विद्युत धारा (Current) की दिशा।",
+            "अंगूठा (Thumb) -> चालक की गति या बल (Force) की दिशा।",
+            "यह नियम विद्युत मोटर (Electric Motor) के कार्य सिद्धांत का आधार है।",
+            "तीनों अंगुलियाँ एक-दूसरे के लंबवत (90°) रखी जाती हैं।"
+        ]
+    },
+    {
+        q: "किसी धारावाही चालक पर चुंबकीय क्षेत्र में लगने वाले बल का मान अधिकतम कब होता है?",
+        options: ["(A) जब धारा तथा चुंबकीय क्षेत्र की दिशा परस्पर समांतर हो (0°)", "(B) जब धारा तथा चुंबकीय क्षेत्र की दिशा परस्पर लंबवत हो (90°)", "(C) जब धारा तथा चुंबकीय क्षेत्र 45° के कोण पर हों", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 1,
+        points: [
+            "बल का सूत्र F = I * L * B * sin(θ) होता है।",
+            "θ = 90° (लंबवत) होने पर sin(90°) = 1 होता है, जिससे बल अधिकतम प्राप्त होता है।",
+            "θ = 0° या 180° (समांतर) होने पर लगने वाला बल शून्य होता है।",
+            "चालक की लंबाई (L) और धारा (I) बढ़ाने पर बल बढ़ता है।",
+            "BPSC TRE में ऐसे गणितीय संबंधों वाले वैचारिक प्रश्न पूछे जाते हैं।"
+        ]
+    },
+    {
+        q: "विद्युत चुंबक (Electromagnet) का क्रोड (Core) बनाने के लिए सबसे उपयुक्त पदार्थ कौन-सा है?",
+        options: ["(A) इस्पात (Steel)", "(B) नर्म लोहा (Soft Iron)", "(C) एल्युमिनियम", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 1,
+        points: [
+            "नर्म लोहा (Soft Iron) आसानी से चुंबकीय तथा वि-चुंबकीय (Demagnetize) हो जाता है।",
+            "स्थायी चुंबक (Permanent Magnet) बनाने के लिए इस्पात (Steel) या एल्निको (Alnico) का प्रयोग होता है।",
+            "विद्युत धारा बंद करते ही नर्म लोहे का चुंबकत्व तुरंत समाप्त हो जाता है।",
+            "विद्युत घंटी और क्रेन में विद्युत चुंबक का उपयोग होता है।",
+            "नर्म लोहे की धारणशीलता (Retentivity) कम होती है।"
+        ]
+    },
+    {
+        q: "विद्युत चुंबकीय प्रेरण (Electromagnetic Induction) की खोज किसने की थी?",
+        options: ["(A) जेम्स क्लर्क मैक्सवेल", "(B) माइकल फैराडे", "(C) अल्बर्ट आइंस्टीन", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 1,
+        points: [
+            "माइकल फैराडे ने 1831 में विद्युत चुंबकीय प्रेरण की खोज की थी।",
+            "जब किसी चालक और चुंबकीय क्षेत्र के बीच आपेक्षिक गति होती है, तो प्रेरित विद्युत वाहक बल (EMF) उत्पन्न होता है।",
+            "यह सिद्धांत विद्युत जनित्र (Generator) और ट्रांसफॉर्मर का आधार है।",
+            "प्रेरित धारा की दिशा फ्लेमिंग के दक्षिण-हस्त नियम (Right-Hand Rule) से दी जाती है।",
+            "जोसेफ हेनरी ने भी फैराडे के साथ स्वतंत्र रूप से यह कार्य किया था।"
+        ]
+    },
+    {
+        q: "लघुपथन (Short Circuit) के समय परिपथ में विद्युत धारा का मान:",
+        options: ["(A) बहुत कम हो जाता है", "(B) परिवर्तित नहीं होता", "(C) अत्यधिक बढ़ जाता है", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 2,
+        points: [
+            "जब विद्युन्मय तार (Live wire) और उदासीन तार (Neutral wire) सीधे संपर्क में आते हैं, तब शॉर्ट सर्किट होता है।",
+            "परिपथ का प्रतिरोध (Resistance) लगभग शून्य हो जाता है।",
+            "धारा (Current) का मान अप्रत्याशित रूप से बहुत अधिक बढ़ जाता है।",
+            "इससे अत्यधिक ऊष्मा उत्पन्न होती है और आग लगने का खतरा होता है।",
+            "सुरक्षा के लिए फ्यूज (Fuse) या MCB का प्रयोग किया जाता है।"
+        ]
+    },
+    {
+        q: "घरेलू विद्युत परिपथ में विद्युन्मय तार (Live Wire) का रंग सामान्यतः कैसा होता है?",
+        options: ["(A) हरा (Green)", "(B) काला (Black)", "(C) लाल (Red)", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 2,
+        points: [
+            "विद्युन्मय तार (Live Wire) -> लाल (Red) या भूरा (Brown)।",
+            "उदासीन तार (Neutral Wire) -> काला (Black) या नीला (Blue)।",
+            "भूसंपर्क तार (Earth Wire) -> हरा (Green) या पीला।",
+            "भारत में घरेलू आपूर्ति 220V, 50Hz AC होती है।",
+            "Live wire और Neutral wire के बीच विभवांतर 220V होता है।"
+        ]
+    },
+    {
+        q: "विद्युत फ्यूज (Electric Fuse) विद्युत धारा के किस प्रभाव पर कार्य करता है?",
+        options: ["(A) चुंबकीय प्रभाव", "(B) रासायनिक प्रभाव", "(C) ऊष्मीय प्रभाव (Thermal Effect)", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 2,
+        points: [
+            "फ्यूज विद्युत धारा के ऊष्मीय प्रभाव (Joule Heating - I²Rt) पर कार्य करता है।",
+            "फ्यूज का गलनांक (Melting point) बहुत कम होना चाहिए।",
+            "इसका प्रतिरोध उच्च होना चाहिए।",
+            "यह तांबे और टीन (या सीसा और टीन) की मिश्रधातु का बना होता है।",
+            "फ्यूज को हमेशा विद्युन्मय तार (Live wire) के साथ श्रेणीक्रम (Series) में जोड़ा जाता है।"
+        ]
+    },
+    {
+        q: "दिष्ट धारा (Direct Current - DC) और प्रत्यावर्ती धारा (Alternating Current - AC) में मुख्य अंतर क्या है?",
+        options: ["(A) DC का परिमाण निरंतर बदलता है", "(B) AC की दिशा समय के साथ आवर्ती रूप से बदलती है, जबकि DC की दिशा नियत रहती है", "(C) AC केवल बैटरी से प्राप्त हो सकती है", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 1,
+        points: [
+            "AC समय के साथ अपनी दिशा और परिमाण बदलती है।",
+            "DC एक ही दिशा में निरंतर प्रवाहित होती है।",
+            "भारत में AC की आवृत्ति (Frequency) 50 Hz होती है, यानी यह 1 सेकंड में 100 बार दिशा बदलती है।",
+            "AC को लंबी दूरी तक बिना अधिक ऊर्जा हानि के भेजा जा सकता है।",
+            "बैटरी, सेल और सौर सेल से DC धारा प्राप्त होती है।"
+        ]
+    },
+    {
+        q: "चुंबकीय क्षेत्र रेखाओं के संबंध में निम्नलिखित में से कौन-सा कथन असत्य है?",
+        options: ["(A) वे बंद वक्र (Closed curves) होती हैं", "(B) चुंबक के बाहर वे उत्तरी ध्रुव से दक्षिणी ध्रुव की ओर जाती हैं", "(C) दो चुंबकीय क्षेत्र रेखाएँ एक-दूसरे को प्रतिच्छेद (Intersect) कर सकती हैं", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 2,
+        points: [
+            "दो चुंबकीय क्षेत्र रेखाएँ कभी भी एक-दूसरे को नहीं काटती हैं।",
+            "यदि वे काटतीं, तो प्रतिच्छेद बिंदु पर दिक्सूची दो दिशाएँ दर्शाती, जो असंभव है।",
+            "चुंबक के अंदर क्षेत्र रेखाएँ दक्षिण से उत्तर ध्रुव की ओर जाती हैं।",
+            "जहाँ क्षेत्र रेखाएँ पास-पास होती हैं, वहाँ चुंबकीय क्षेत्र मजबूत होता है।",
+            "चुंबकीय क्षेत्र एक सदिश राशि (Vector quantity) है जिसमें परिमाण और दिशा दोनों होते हैं।"
+        ]
+    },
+    {
+        q: "फ्लेमिंग का दक्षिण-हस्त नियम (Fleming's Right-Hand Rule) किसके लिए प्रयुक्त होता है?",
+        options: ["(A) विद्युत मोटर में बल की दिशा ज्ञात करने", "(B) प्रेरित विद्युत धारा (Induced Current) की दिशा ज्ञात करने", "(C) चुंबकीय क्षेत्र की तीव्रता मापने", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 1,
+        points: [
+            "फ्लेमिंग का दायाँ हाथ नियम (Right Hand Rule) प्रेरित धारा की दिशा बताता है।",
+            "अंगूठा -> चालक की गति (Motion of conductor)।",
+            "तर्जनी -> चुंबकीय क्षेत्र की दिशा।",
+            "मध्यमा -> प्रेरित विद्युत धारा (Induced current) की दिशा।",
+            "यह नियम विद्युत जनित्र (Electric Generator) पर लागू होता है।"
+        ]
+    },
+    {
+        q: "गैल्वेनोमीटर (Galvanometer) का उपयोग परिपथ में किस हेतु किया जाता है?",
+        options: ["(A) उच्च विभवांतर मापने", "(B) केवल विद्युत धारा की उपस्थिति का पता लगाने", "(C) विद्युत ऊर्जा को यांत्रिक ऊर्जा में बदलने", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 1,
+        points: [
+            "गैल्वेनोमीटर परिपथ में सूक्ष्म विद्युत धारा की उपस्थिति और उसकी दिशा का पता लगाता है।",
+            "इसके समानांतर क्रम में शंट (Shunt - कम प्रतिरोध) लगाकर इसे एमीटर बनाया जाता है।",
+            "इसके श्रेणीक्रम में उच्च प्रतिरोध लगाकर इसे वोल्टमीटर बनाया जाता है।",
+            "यदि परिपथ में धारा शून्य हो, तो इसका सूचक शून्य (मध्य) पर रहता है।",
+            "BPSC में एमीटर, वोल्टमीटर और गैल्वेनोमीटर रूपांतरण पर प्रश्न आते हैं।"
+        ]
+    },
+    {
+        q: "भूसंपर्क तार (Earth Wire) का मुख्य कार्य क्या है?",
+        options: ["(A) परिपथ को अतिरिक्त विद्युत धारा प्रदान करना", "(B) क्षरण धारा (Leakage current) से विद्युत आघात (Electric Shock) से बचाना", "(C) फ्यूज तार को पिघलने से रोकना", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 1,
+        points: [
+            "भूसंपर्क तार धातु के आवरण वाले उपकरणों (जैसे फ्रिज, प्रेस) को भूमि से जोड़ता है।",
+            "इसका प्रतिरोध बहुत कम होता है, जिससे लीक हुई धारा सीधे जमीन में चली जाती है।",
+            "यह उपयोगकर्ता को गंभीर बिजली के झटके से सुरक्षा प्रदान करता है।",
+            "यह तार गहरे हरे रंग के आवरण वाला होता है।",
+            "इसे तांबे की प्लेट के जरिए जमीन में गाड़ा जाता है।"
+        ]
+    },
+    {
+        q: "किसी वृत्ताकार कुण्डली (Circular Coil) में फेरों (Turns) की संख्या n गुना बढ़ाने पर उत्पन्न चुंबकीय क्षेत्र पर क्या प्रभाव पड़ेगा?",
+        options: ["(A) n गुना घट जाएगा", "(B) n² गुना बढ़ जाएगा", "(C) n गुना बढ़ जाएगा", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 2,
+        points: [
+            "प्रत्येक फेरे में धारा समान दिशा में प्रवाहित होती है।",
+            "इसलिए सभी फेरों द्वारा उत्पन्न चुंबकीय क्षेत्र आपस में जुड़ जाते हैं।",
+            "क्षेत्र का मान n गुना बढ़ जाता है (B ∝ n)।",
+            "केंद्र पर चुंबकीय क्षेत्र B = (μ₀ * n * I) / (2R) होता है।",
+            "त्रिज्या (R) कम करने पर भी चुंबकीय क्षेत्र बढ़ता है।"
+        ]
+    },
+    {
+        q: "लेंज़ का नियम (Lenz's Law) किस भौतिक राशि के संरक्षण के नियम का पालन करता है?",
+        options: ["(A) आवेश संरक्षण", "(B) संवेग संरक्षण", "(C) ऊर्जा संरक्षण (Law of Conservation of Energy)", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 2,
+        points: [
+            "लेंज़ का नियम बताता है कि प्रेरित धारा उस कारण का विरोध करती है जिससे वह उत्पन्न हुई है।",
+            "यह सीधे तौर पर ऊर्जा संरक्षण के नियम (Conservation of Energy) पर आधारित है।",
+            "यांत्रिक कार्य ही प्रेरित विद्युत ऊर्जा में परिवर्तित होता है।",
+            "लेंज़ का नियम फैराडे के प्रेरण नियम का ऋणात्मक चिह्न (-e) निर्धारित करता है।",
+            "BPSC TRE में संरक्षण नियमों (Conservation laws) पर प्रश्न बार-बार पूछे गए हैं।"
+        ]
+    },
+    {
+        q: "दिष्ट धारा जनित्र (DC Generator) में दिपरिवर्तक (Commutator) का कार्य कौन करता है?",
+        options: ["(A) सर्पी वलय (Slip Rings)", "(B) विभक्त वलय (Split Rings)", "(C) कार्बन ब्रुश", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 1,
+        points: [
+            "विभक्त वलय (Split Rings) DC जनित्र और DC मोटर दोनों में कम्यूटेटर का काम करते हैं।",
+            "यह बाहरी परिपथ में धारा की दिशा को एक ही ओर (एकदिशीय) बनाए रखता है।",
+            "AC जनित्र में विभक्त वलय के स्थान पर सर्पी वलय (Slip Rings) का उपयोग होता है।",
+            "कार्बन ब्रश वलयों से संपर्क बनाकर बाह्य परिपथ को धारा भेजते हैं।",
+            "यह BPSC TRE का एक बेहद पसंदीदा तकनीकी प्रश्न है।"
+        ]
+    },
+    {
+        q: "साइक्लोट्रॉन (Cyclotron) का उपयोग किसे त्वरित (Accelerate) करने के लिए किया जाता है?",
+        options: ["(A) केवल इलेक्ट्रॉनों को", "(B) धन आवेशित कणों (जैसे प्रोटॉन, अल्फा कण) को", "(C) अनावेशित न्यूट्रॉनों को", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 1,
+        points: [
+            "साइक्लोट्रॉन लंबवत चुंबकीय और विद्युत क्षेत्रों के संयोजन पर काम करता है।",
+            "यह भारी धन आवेशित कणों (प्रोटॉन, अल्फा-कण, ड्यूट्रॉन) को उच्च ऊर्जा तक त्वरित करता है।",
+            "न्यूट्रॉन अनावेशित होने के कारण इससे त्वरित नहीं हो सकते।",
+            "इलेक्ट्रॉन का द्रव्यमान बहुत कम होने से यह जल्दी आपेक्षकीय (Relativistic) गति प्राप्त कर लेता है, इसलिए इसका उपयोग इलेक्ट्रॉनों के लिए नहीं होता।",
+            "इसकी खोज अर्नेस्ट लॉरेंस ने की थी।"
+        ]
+    },
+    {
+        q: "जब एक आवेशित कण चुंबकीय क्षेत्र में उसके समांतर (Parallel) प्रवेश करता है, तो उसका पथ कैसा होगा?",
+        options: ["(A) वृत्ताकार (Circular)", "(B) कुण्डलिनी (Helical)", "(C) ऋजुरेखीय (Straight Line - अपरिवर्तित)", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 2,
+        points: [
+            "बल F = q * v * B * sin(θ) होता है।",
+            "समांतर प्रवेश करने पर θ = 0°, इसलिए sin(0°) = 0, अर्थात् बल शून्य होगा।",
+            "कोई बल न लगने के कारण कण बिना मुड़े एक सीधी रेखा (Straight Line) में चलता रहेगा।",
+            "यदि कण 90° पर प्रवेश करे, तो पथ वृत्ताकार (Circular) होगा।",
+            "यदि कण किसी अन्य कोण पर प्रवेश करे, तो पथ कुण्डलिनी (Helical) होगा।"
+        ]
+    },
+    {
+        q: "चुंबकीय द्विध्रुव आघूर्ण (Magnetic Dipole Moment) की SI इकाई क्या है?",
+        options: ["(A) टेसला (Tesla)", "(B) वेबर (Weber)", "(C) एम्पीयर-मीटर² (A·m²)", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 2,
+        points: [
+            "चुंबकीय द्विध्रुव आघूर्ण M = I * A (धारा × क्षेत्रफल) होता है।",
+            "इसकी इकाई Ampere · meter² (A·m²) या Joule / Tesla होती है।",
+            "टेसला (Tesla) चुंबकीय क्षेत्र की तीव्रता (B) की इकाई है।",
+            "वेबर (Weber) चुंबकीय फ्लक्स (Magnetic Flux) की इकाई है।",
+            "यह एक सदिश राशि है जिसकी दिशा दक्षिण ध्रुव से उत्तर ध्रुव की ओर होती है।"
+        ]
+    },
+    {
+        q: "परिनालिका के अंदर लोहे का क्रोड रखने पर चुंबकीय क्षेत्र की तीव्रता पर क्या प्रभाव पड़ता है?",
+        options: ["(A) घट जाती है", "(B) बहुत अधिक बढ़ जाती है", "(C) अपरिवर्तित रहती है", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 1,
+        points: [
+            "नर्म लोहे की आपेक्षिक चुंबकशीलता (Relative Permeability) बहुत अधिक होती है।",
+            "लोहा चुंबकीय रेखाओं को अपने अंदर केंद्रित कर लेता है।",
+            "इससे चुंबकीय क्षेत्र की तीव्रता कई गुना बढ़ जाती है।",
+            "इसी सिद्धांत पर शक्तिशाली विद्युत चुंबक (Electromagnets) बनाए जाते हैं।",
+            "अचुंबकीय पदार्थ (जैसे लकड़ी) रखने पर क्षेत्र में कोई बदलाव नहीं होता।"
+        ]
+    },
+    {
+        q: "अतिभारण (Overloading) का मुख्य कारण क्या है?",
+        options: ["(A) एक ही सॉकेट से कई उच्च शक्ति के उपकरणों को जोड़ना", "(B) आपूर्ति वोल्टता में अचानक वृद्धि होना", "(C) तारों का पुराना या क्षतिग्रस्त होना", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 3,
+        points: [
+            "अतिभारण (Overloading) के कई कारण हो सकते हैं।",
+            "एक ही सॉकेट से अत्यधिक उपकरण जोड़ने पर कुल धारा सुरक्षित सीमा से बढ़ जाती है।",
+            "वोल्टेज में अचानक उछाल आने से भी ओवरलोडिंग होती है।",
+            "अतः यहाँ 'उपर्युक्त में से एक से अधिक' (Option D) सही उत्तर है।",
+            "BPSC TRE में ऑप्शन (D) का प्रयोग ऐसे ही बहु-कारकीय प्रश्नों में होता है।"
+        ]
+    },
+    {
+        q: "ट्रांसफॉर्मर (Transformer) किस सिद्धांत पर कार्य करता है?",
+        options: ["(A) स्व-प्रेरण (Self Induction)", "(B) अन्योन्य प्रेरण (Mutual Induction)", "(C) सीबेक प्रभाव", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 1,
+        points: [
+            "ट्रांसफॉर्मर अन्योन्य प्रेरण (Mutual Induction) के सिद्धांत पर कार्य करता है।",
+            "यह केवल प्रत्यावर्ती धारा (AC) पर काम करता है, DC पर नहीं।",
+            "यह एसी वोल्टेज को बढ़ाने (Step-up) या घटाने (Step-down) का काम करता है।",
+            "यह विद्युत आवृत्ति (Frequency) को परिवर्तित नहीं करता।",
+            "इसकी दक्षता (Efficiency) आमतौर पर 95% से अधिक होती है।"
+        ]
+    },
+    {
+        q: "चुंबकीय फ्लक्स (Magnetic Flux) का SI मात्रक क्या है?",
+        options: ["(A) वेबर (Weber)", "(B) टेसला (Tesla)", "(C) गॉस (Gauss)", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 0,
+        points: [
+            "चुंबकीय फ्लक्स (Φ) = B * A * cos(θ) होता है।",
+            "इसका SI मात्रक वेबर (Weber - Wb) या Volt-second है।",
+            "1 Weber = 1 Tesla × 1 m²।",
+            "गॉस (Gauss) CGS प्रणाली में चुंबकीय क्षेत्र की इकाई है (1 Tesla = 10⁴ Gauss)।",
+            "चुंबकीय फ्लक्स एक अदिश राशि (Scalar quantity) है।"
+        ]
+    },
+    {
+        q: "किसी लंबे सीधे धारावाही चालक तार से दूरी (r) बढ़ने पर चुंबकीय क्षेत्र की तीव्रता (B) पर क्या प्रभाव पड़ता है?",
+        options: ["(A) बढ़ती है (B ∝ r)", "(B) घटती है (B ∝ 1/r)", "(C) दूरी पर निर्भर नहीं करती", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 1,
+        points: [
+            "बायो-सावर्त नियम के अनुसार, सीधे तार से दूरी r पर B = (μ₀ * I) / (2π * r)।",
+            "चुंबकीय क्षेत्र दूरी के व्युत्क्रमानुपाती (Inversely proportional) होता है।",
+            "तार से दूर जाने पर संकेंद्री वृत्त बड़े होते जाते हैं और क्षेत्र कमजोर होता जाता है।",
+            "धारा (I) का मान बढ़ाने पर चुंबकीय क्षेत्र बढ़ता है।",
+            "यह नियम चुंबकीय क्षेत्र की स्थानिक क्षीणता को दर्शाता है।"
+        ]
+    },
+    {
+        q: "फ्लेमिंग के वामहस्त नियम का उपयोग किस उपकरण की कार्यप्रणाली को समझने में किया जाता है?",
+        options: ["(A) विद्युत जनित्र (Electric Generator)", "(B) विद्युत मोटर (Electric Motor)", "(C) ट्रांसफॉर्मर", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 1,
+        points: [
+            "विद्युत मोटर electrical energy को mechanical energy में बदलती है।",
+            "इस पर बल की दिशा फ्लेमिंग के वामहस्त नियम (Left Hand Rule) से निकाली जाती है।",
+            "विद्युत जनित्र (Generator) के लिए फ्लेमिंग का दक्षिण-हस्त नियम लगता है।",
+            "मोटर का उपयोग पंखे, वाशिंग मशीन, मिक्सर आदि में होता है।",
+            "यह BPSC TRE परीक्षा में बार-बार पूछा जाने वाला एक मूलभूत अंतर है।"
+        ]
+    },
+    {
+        q: "पृथ्वी के चुंबकीय ध्रुवों पर नति कोण (Angle of Dip / Inclination) का मान कितना होता है?",
+        options: ["(A) 0°", "(B) 45°", "(C) 90°", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 2,
+        points: [
+            "चुंबकीय ध्रुवों (Magnetic Poles) पर नति कोण 90° होता है।",
+            "चुंबकीय भूमध्य रेखा (Magnetic Equator) पर नति कोण 0° होता है।",
+            "नति कोण वह कोण है जो चुंबकीय सुई क्षितिज के साथ बनाती है।",
+            "ध्रुवों पर चुंबकीय सुई बिल्कुल लंबवत (Vertical) हो जाती है।",
+            "स्थान बदलने पर नति कोण का मान बदलता है।"
+        ]
+    },
+    {
+        q: "प्रतिचुंबकीय पदार्थों (Diamagnetic Substances) के लिए चुंबकीय प्रवृत्ति (Magnetic Susceptibility - χ) कैसी होती है?",
+        options: ["(A) धनात्मक और बहुत अधिक", "(B) ऋणात्मक और छोटी", "(C) शून्य", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 1,
+        points: [
+            "प्रतिचुंबकीय पदार्थ (जैसे बिस्मथ, तांबा, जल) चुंबक से हल्के से प्रतिकर्षित होते हैं।",
+            "इनकी चुंबकीय प्रवृत्ति ऋणात्मक (Negative) और छोटी होती है।",
+            "अनुचुंबकीय (Paramagnetic) पदार्थों के लिए χ धनात्मक और छोटी होती है।",
+            "लौहचुंबकीय (Ferromagnetic) पदार्थों के लिए χ धनात्मक और बहुत बड़ी होती है।",
+            "प्रतिचुंबकीय गुण ताप पर निर्भर नहीं करता।"
+        ]
+    },
+    {
+        q: "डोमेन सिद्धांत (Domain Theory) निम्नलिखित में से किस प्रकार के पदार्थों के चुंबकत्व को समझाने के लिए दिया गया है?",
+        options: ["(A) प्रतिचुंबकीय पदार्थ", "(B) अनुचुंबकीय पदार्थ", "(C) लौहचुंबकीय पदार्थ (Ferromagnetic Substances)", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 2,
+        points: [
+            "लौहचुंबकीय पदार्थों (लोहा, निकेल, कोबाल्ट) में परमाणुओं के छोटे-छोटे समूह होते हैं जिन्हें 'डोमेन' कहते हैं।",
+            "प्रत्येक डोमेन में लगभग 10¹⁸ से 10²¹ परमाणु एक ही दिशा में संरेखित होते हैं।",
+            "बाहरी चुंबकीय क्षेत्र लगाने पर डोमेन क्षेत्र की दिशा में घूम जाते हैं।",
+            "क्यूरी ताप (Currie Temperature) के ऊपर लौहचुंबकीय पदार्थ अनुचुंबकीय बन जाता है।",
+            "यह ठोस अवस्था भौतिकी का एक महत्वपूर्ण सिद्धांत है।"
+        ]
+    },
+    {
+        q: "भंवर धाराएं (Eddy Currents) किसके कारण उत्पन्न होती हैं?",
+        options: ["(A) स्थिर चुंबकीय क्षेत्र में रखे स्थिर चालक से", "(B) बदलती हुई चुंबकीय फ्लक्स में रखे किसी ठोस धातु के टुकड़े से", "(C) केवल DC धारा के प्रवाह से", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 1,
+        points: [
+            "जब किसी धातु के बड़े टुकड़े से गुजरने वाले चुंबकीय फ्लक्स में परिवर्तन होता है, तो उसमें चक्रीय प्रेरित धाराएं बनती हैं।",
+            "इन्हें फोकॉ धाराएं (Foucault Currents) या भंवर धाराएं कहते हैं।",
+            "इनसे कोर गर्म हो जाता है और ऊष्मा के रूप में ऊर्जा की हानि होती है।",
+            "इस हानि को कम करने के लिए ट्रांसफॉर्मर की क्रोड को पटलित (Laminated) बनाया जाता है।",
+            "इinduction furnace (प्रेरण भट्टी) और इंडक्शन कुकटॉप में इनका लाभदायक उपयोग होता है।"
+        ]
+    },
+    {
+        q: "क्यूरी ताप (Curie Temperature) वह ताप है जिसके ऊपर:",
+        options: ["(A) अनुचुंबकीय पदार्थ प्रतिचुंबकीय बन जाता है", "(B) लौहचुंबकीय पदार्थ अनुचुंबकीय (Paramagnetic) बन जाता है", "(C) धातु अतिचालक (Superconductor) बन जाती है", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 1,
+        points: [
+            "क्यूरी ताप पर डोमेन संरचना नष्ट हो जाती है।",
+            "लोहे के लिए क्यूरी ताप लगभग 770°C (1043 K) होता है।",
+            "निकेल के लिए यह लगभग 358°C होता है।",
+            "इस ताप के ऊपर पदार्थ की चुंबकीय ग्राह्यता ताप के व्युत्क्रमानुपाती होती है (Curie-Weiss Law)।",
+            "यह ऊष्मागतिकी और चुंबकत्व का संकरण बिंदु है।"
+        ]
+    },
+    {
+        q: "दिष्ट धारा (DC) की आवृत्ति (Frequency) कितनी होती है?",
+        options: ["(A) 50 Hz", "(B) 60 Hz", "(C) 0 Hz", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 2,
+        points: [
+            "DC धारा अपनी दिशा नहीं बदलती, इसलिए इसकी आवृत्ति शून्य (0 Hz) होती है।",
+            "भारत में प्रत्यावर्ती धारा (AC) की आवृत्ति 50 Hz होती है।",
+            "अमेरिका में AC की आवृत्ति 60 Hz होती है।",
+            "DC का आवर्तकाल (Time Period) अनंत (Infinite) माना जाता है।",
+            "यह BPSC TRE प्राथमिक एवं माध्यमिक दोनों परीक्षाओं के लिए एक आधारभूत प्रश्न है।"
+        ]
+    },
+    {
+        q: "बायो-सावर्त का नियम (Biot-Savart Law) विद्युत परिपथ के किस नियम के समतुल्य है?",
+        options: ["(A) ओम का नियम", "(B) स्थिरवैद्युतिकी का कूलॉम नियम (Coulomb's Law)", "(C) किर्चॉफ का नियम", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 1,
+        points: [
+            "बायो-सावर्त नियम चुंबकत्व में वही भूमिका निभाता है जो कूलॉम नियम स्थिरवैद्युतिकी में निभाता है।",
+            "dB = (μ₀ / 4π) * (I * dL * sinθ) / r²।",
+            "दोनों नियम दूरी के वर्ग के व्युत्क्रमानुपाती (Inverse square law) नियम का पालन करते हैं।",
+            "कूलॉम नियम अदिश आवेश के लिए है, बायो-सावर्त नियम सदिश धारा-अवयव (I·dL) के लिए है।",
+            "दोनों लंबी दूरी के बल (Long-range forces) व्यक्त करते हैं।"
+        ]
+    },
+    {
+        q: "हेलमहोलत्ज़ कुण्डलियों (Helmholtz Coils) का उपयोग क्या उत्पन्न करने के लिए किया जाता है?",
+        options: ["(A) अत्यधिक उच्च विभवांतर", "(B) अत्यंत तीव्र एवं एकसमान चुंबकीय क्षेत्र (Uniform Magnetic Field)", "(C) उच्च आवृत्ति की AC धारा", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 1,
+        points: [
+            "हेलमहोलत्ज़ कुण्डली में दो एकसमान वृत्ताकार कुण्डलियाँ एक ही अक्ष पर रखी होती हैं।",
+            "इनके बीच की दूरी उनकी त्रिज्या (R) के बराबर होती है।",
+            "इनके मध्य के क्षेत्र में अत्यंत एकसमान (Uniform) चुंबकीय क्षेत्र प्राप्त होता है।",
+            "प्रयोगशालाओं में प्रायोगिक परीक्षण के लिए इसका उपयोग किया जाता है।",
+            "BPSC उच्चतर माध्यमिक (11th-12th) भौतिकी में यह प्रश्न पूछा जा सकता है।"
+        ]
+    },
+    {
+        q: "यदि किसी छड़ चुंबक को उसकी लंबाई के लंबवत दो बराबर भागों में काट दिया जाए, तो प्रत्येक नए भाग की ध्रुव प्रबलता (Pole Strength) पर क्या प्रभाव पड़ेगा?",
+        options: ["(A) आधी हो जाएगी", "(B) दोगुनी हो जाएगी", "(C) अपरिवर्तित रहेगी", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 2,
+        points: [
+            "लंबाई के लंबवत काटने पर अनुप्रस्थ काट का क्षेत्रफल नहीं बदलता, इसलिए ध्रुव प्रबलता (m) अपरिवर्तित रहती है।",
+            "हालांकि, लंबाई आधी हो जाने से चुंबकीय आघूर्ण (M = m × L) आधा हो जाता है।",
+            "यदि चुंबक को उसकी लंबाई के अनुदिश (समांतर) काटा जाए, तो ध्रुव प्रबलता आधी हो जाती है।",
+            "काटने पर प्रत्येक भाग एक स्वतंत्र नया चुंबक (N and S poles) बन जाता है।",
+            "एकल चुंबकीय ध्रुव (Magnetic Monopole) का अस्तित्व संभव नहीं है।"
+        ]
+    },
+    {
+        q: "लॉरेंज बल (Lorentz Force) का सही गणितीय व्यंजक क्या है?",
+        options: ["(A) F = qE", "(B) F = q(v × B)", "(C) F = q[E + (v × B)]", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 2,
+        points: [
+            "जब कोई आवेशित कण E और B दोनों क्षेत्रों में गति करता है, तो उस पर कुल लॉरेंज बल लगता है।",
+            "F = F_electric + F_magnetic = qE + q(v × B)।",
+            "qE स्थिरवैद्युत बल है और q(v × B) चुंबकीय बल है।",
+            "यदि E = 0 हो, तो केवल चुंबकीय लॉरेंज बल F = q(v × B) कार्य करेगा।",
+            "चुंबकीय बल कभी भी कण पर कोई कार्य (Work done = 0) नहीं करता क्योंकि यह गति के लंबवत होता है।"
+        ]
+    },
+    {
+        q: "एम्पीयर का परिपथीय नियम (Ampere's Circuital Law) का सूत्र क्या है?",
+        options: ["(A) ∮ B·dl = μ₀ I", "(B) ∮ E·dl = -dΦ/dt", "(C) ∮ B·dA = 0", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 0,
+        points: [
+            "एम्पीयर नियम के अनुसार, किसी बंद लूप के अनुदिश B का रेखीय समाकलन μ₀ गुना कुल धारा I होता है।",
+            "यह नियम स्थिर वैद्युतिकी में गॉस के नियम के समान अत्यंत उपयोगी है।",
+            "मैक्सवेल ने इसमें विस्थापन धारा (Displacement Current) जोड़कर इसका संशोधन किया था।",
+            "परिनालिका और टोराइड का चुंबकीय क्षेत्र निकालने में इसका उपयोग होता है।",
+            "यह मैक्सवेल के चार प्रसिद्ध समीकरणों में से एक है।"
+        ]
+    },
+    {
+        q: "गॉस का चुंबकत्व का नियम (Gauss's Law for Magnetism - ∮ B·dA = 0) क्या दर्शाता है?",
+        options: ["(A) चुंबकीय क्षेत्र आवेशों से उत्पन्न होता है", "(B) प्रकृति में स्वतंत्र चुंबकीय ध्रुवों (Magnetic Monopoles) का अस्तित्व नहीं है", "(C) चुंबकीय बल रेखाएँ खुली होती हैं", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 1,
+        points: [
+            "किसी भी बंद पृष्ठ से निकलने वाला कुल चुंबकीय फ्लक्स हमेशा शून्य होता है।",
+            "इसका अर्थ है कि जितने उत्तरी ध्रुव होंगे उतने ही दक्षिणी ध्रुव भी होंगे।",
+            "यह सिद्ध करता है कि एकल चुंबकीय ध्रुव (Monopole) का कोई अस्तित्व नहीं होता।",
+            "चुंबकीय क्षेत्र रेखाएँ हमेशा सतत बंद लूप (Closed loops) बनाती हैं।",
+            "यह मैक्सवेल का द्वितीय समीकरण भी है।"
+        ]
+    },
+    {
+        q: "एक आदर्श वोल्टमीटर (Ideal Voltmeter) और आदर्श एमीटर (Ideal Ammeter) का प्रतिरोध क्रमश: कितना होना चाहिए?",
+        options: ["(A) शून्य तथा अनंत", "(B) अनंत तथा शून्य", "(C) दोनों का शून्य", "(D) उपर्युक्त में से एक से अधिक / उपर्युक्त में से सभी गलत", "(E) उपर्युक्त में से कोई नहीं / प्रयास नहीं किया गया"],
+        ans: 1,
+        points: [
+            "आदर्श वोल्टमीटर का प्रतिरोध अनंत (Infinite) होना चाहिए ताकि यह परिपथ से धारा न खींचे।",
+            "आदर्श एमीटर का प्रतिरोध शून्य (Zero) होना चाहिए ताकि परिपथ का कुल प्रतिरोध न बदले।",
+            "वोल्टमीटर को हमेशा समानांतर क्रम (Parallel) में जोड़ा जाता है।",
+            "एमीटर को हमेशा श्रेणीक्रम (Series) में जोड़ा जाता है।",
+            "BPSC शिक्षक भर्ती में वोल्टमीटर और एमीटर पर बार-बार प्रश्न आते हैं।"
+        ]
+    }
+];
+
+// State Variables
+let currentQuestionIndex = 0;
+let userAnswers = new Array(testQuestions.length).fill(null);
+let timerInterval = null;
+let timeRemaining = 0;
+let candidateName = "";
+let analysisCurrentPage = 0;
+
+// Leaderboard Mock Data
+let leaderboardData = [
+    { name: "Rohan Sharma", score: 38.67 },
+    { name: "Priya Singh", score: 35.33 },
+    { name: "Amit Kumar", score: 32.67 },
+    { name: "Neha Verma", score: 29.33 }
+];
+
+window.onload = function() {
+    setupTestHeader();
+};
+
+function setupTestHeader() {
+    const totalQ = testQuestions.length;
+    document.getElementById('stat-mcqs').innerText = totalQ + " Questions";
+    document.getElementById('stat-duration').innerText = totalQ + " Minutes";
+    document.getElementById('res-total').innerText = totalQ;
+}
+
+function startTest() {
+    const nameInput = document.getElementById('candidate-name-input').value.trim();
+    if (!nameInput) {
+        alert("Please enter your candidate name!");
+        return;
+    }
+    candidateName = nameInput;
+    document.getElementById('test-candidate-display').innerText = candidateName;
+
+    userAnswers = new Array(testQuestions.length).fill(null);
+    currentQuestionIndex = 0;
+    timeRemaining = testQuestions.length * 60; // 1 min per question = 40 Mins
+
+    showScreen('screen-test');
+    renderQuestion();
+    renderPaletteGrid();
+    startTimer();
+}
+
+function startTimer() {
+    clearInterval(timerInterval);
+    updateTimerDisplay();
+    timerInterval = setInterval(() => {
+        timeRemaining--;
+        updateTimerDisplay();
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            alert("Time is up! Submitting test automatically.");
+            submitTest();
+        }
+    }, 1000);
+}
+
+function updateTimerDisplay() {
+    const m = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
+    const s = (timeRemaining % 60).toString().padStart(2, '0');
+    document.getElementById('header-timer').innerText = `⏱️ ${m}:${s}`;
+}
+
+function renderQuestion() {
+    const qData = testQuestions[currentQuestionIndex];
+    document.getElementById('q-count-text').innerText = `Q${currentQuestionIndex + 1} of ${testQuestions.length}`;
+    document.getElementById('question-text-box').innerText = `Q${currentQuestionIndex + 1}. ${qData.q}`;
+
+    const optsContainer = document.getElementById('options-container');
+    optsContainer.innerHTML = '';
+
+    qData.options.forEach((optText, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        if (userAnswers[currentQuestionIndex] === idx) {
+            btn.classList.add('selected');
+        }
+        btn.innerText = optText;
+        btn.onclick = () => selectOption(idx);
+        optsContainer.appendChild(btn);
+    });
+
+    document.getElementById('next-btn').innerText = (currentQuestionIndex === testQuestions.length - 1) ? "Submit" : "Next ➔";
+}
+
+function selectOption(index) {
+    userAnswers[currentQuestionIndex] = index;
+    renderQuestion();
+    renderPaletteGrid();
+}
+
+function prevQuestion() {
+    if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        renderQuestion();
+    }
+}
+
+function nextQuestion() {
+    if (currentQuestionIndex < testQuestions.length - 1) {
+        currentQuestionIndex++;
+        renderQuestion();
+    } else {
+        togglePalette(true);
+    }
+}
+
+function togglePalette(show) {
+    document.getElementById('palette-modal').style.display = show ? 'flex' : 'none';
+}
+
+function renderPaletteGrid() {
+    const grid = document.getElementById('palette-grid');
+    grid.innerHTML = '';
+    testQuestions.forEach((_, idx) => {
+        const d = document.createElement('div');
+        d.className = 'palette-num';
+        if (userAnswers[idx] !== null) {
+            d.classList.add('answered');
+        }
+        d.innerText = idx + 1;
+        d.onclick = () => {
+            currentQuestionIndex = idx;
+            renderQuestion();
+            togglePalette(false);
+        };
+        grid.appendChild(d);
+    });
+}
+
+function submitTest() {
+    clearInterval(timerInterval);
+    togglePalette(false);
+
+    let correctCount = 0;
+    let wrongCount = 0;
+    let attemptedCount = 0;
+
+    testQuestions.forEach((q, idx) => {
+        const uAns = userAnswers[idx];
+        if (uAns !== null && uAns !== 4) { // Option E (idx 4) is Not Attempted
+            attemptedCount++;
+            if (uAns === q.ans) {
+                correctCount++;
+            } else {
+                wrongCount++;
+            }
+        } else if (uAns === null) {
+            // Unattempted without selecting E -> Negative marking
+            wrongCount++;
+        }
+    });
+
+    const finalScore = Math.max(0, (correctCount * 1) - (wrongCount * (1 / 3))).toFixed(2);
+
+    let currentLeaderboard = [...leaderboardData, { name: candidateName, score: parseFloat(finalScore) }];
+    currentLeaderboard.sort((a, b) => b.score - a.score);
+
+    const userRank = currentLeaderboard.findIndex(item => item.name === candidateName) + 1;
+
+    document.getElementById('res-name').innerText = candidateName;
+    document.getElementById('res-attempted').innerText = attemptedCount;
+    document.getElementById('res-correct').innerText = correctCount;
+    document.getElementById('res-wrong').innerText = wrongCount;
+    document.getElementById('res-score').innerText = `${finalScore} / ${testQuestions.length}`;
+    document.getElementById('res-rank').innerText = `${userRank}th Rank`;
+
+    const lbList = document.getElementById('leaderboard-list');
+    lbList.innerHTML = '';
+    currentLeaderboard.slice(0, 5).forEach((item, i) => {
+        const div = document.createElement('div');
+        div.className = 'leaderboard-item';
+        div.innerHTML = `<span>#${i + 1} ${item.name}</span> <span><b>${item.score.toFixed(2)}</b> Marks</span>`;
+        lbList.appendChild(div);
+    });
+
+    showScreen('screen-result');
+}
+
+function showAnalysisPage(pageIdx) {
+    analysisCurrentPage = pageIdx;
+    showScreen('screen-analysis');
+
+    const container = document.getElementById('analysis-content');
+    container.innerHTML = '';
+
+    // 1 Page = 2 Questions Analysis
+    const startIdx = pageIdx * 2;
+    const endIdx = Math.min(startIdx + 2, testQuestions.length);
+
+    for (let i = startIdx; i < endIdx; i++) {
+        const q = testQuestions[i];
+        const uAns = userAnswers[i];
+        const isCorrect = uAns === q.ans;
+
+        let statusText = "";
+        let statusClass = "";
+
+        if (uAns === null || uAns === 4) {
+            statusText = "Your Answer: Not Attempted";
+            statusClass = "not-attempted";
+        } else if (isCorrect) {
+            statusText = `Your Answer: ${q.options[uAns]} (Correct)`;
+            statusClass = "correct";
+        } else {
+            statusText = `Your Answer: ${q.options[uAns]} | Correct Answer: ${q.options[q.ans]}`;
+            statusClass = "wrong";
+        }
+
+        let ptsList = q.points.map(p => `<li>${p}</li>`).join('');
+
+        const card = document.createElement('div');
+        card.className = 'analysis-card';
+        card.innerHTML = `
+            <div class="analysis-q-title">Q${i + 1}. ${q.q}</div>
+            <div class="ans-status ${statusClass}">${statusText}</div>
+            <div class="explanation-box">
+                <b>💡 5 Important Points (BPSC TRE 4.0):</b>
+                <ul>${ptsList}</ul>
+            </div>
+        `;
+        container.appendChild(card);
+    }
+
+    document.getElementById('analysis-prev-btn').style.visibility = (pageIdx === 0) ? 'hidden' : 'visible';
+    document.getElementById('analysis-next-btn').style.visibility = (endIdx >= testQuestions.length) ? 'hidden' : 'visible';
+}
+
+function prevAnalysisPage() {
+    if (analysisCurrentPage > 0) {
+        showAnalysisPage(analysisCurrentPage - 1);
+    }
+}
+
+function nextAnalysisPage() {
+    if ((analysisCurrentPage + 1) * 2 < testQuestions.length) {
+        showAnalysisPage(analysisCurrentPage + 1);
+    }
+}
+
+function resetToHome() {
+    showScreen('screen-start');
+    document.getElementById('candidate-name-input').value = candidateName;
+    document.getElementById('header-timer').innerText = "⏱️ 00:00";
+}
+
+function showScreen(screenId) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(screenId).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
